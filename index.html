@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phase 3 NZ Curriculum Measurement Assessment - Part 2</title>
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f4f8; margin: 0; padding: 20px; color: #2d3748; }
+    .container { max-width: 750px; margin: 0 auto; background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+    .page { display: none; }
+    .page.active { display: block; }
+    h1 { color: #2b6cb0; text-align: center; }
+    h2 { color: #2d3748; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; }
+    label { font-weight: bold; display: block; margin-top: 15px; }
+    input[type="text"], select { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #cbd5e0; border-radius: 6px; box-sizing: border-box; font-size: 16px; }
+    .option-btn { display: block; width: 100%; padding: 14px 18px; margin: 12px 0; text-align: left; background: #edf2f7; border: 2px solid #cbd5e0; border-radius: 8px; cursor: pointer; font-size: 16px; transition: all 0.2s; }
+    .option-btn:hover { background: #e2e8f0; }
+    .option-btn.selected { background: #ebf8ff; border-color: #3182ce; font-weight: bold; }
+    .nav-btns { display: flex; justify-content: space-between; margin-top: 25px; }
+    button.btn { padding: 10px 20px; background: #3182ce; color: white; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; }
+    button.btn:disabled { background: #cbd5e0; cursor: not-allowed; }
+    .img-container { text-align: center; margin: 20px 0; background: #ffffff; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; }
+    .img-container img { max-width: 100%; height: auto; max-height: 250px; border-radius: 6px; display: block; margin: 0 auto; }
+    .data-table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 15px; }
+    .data-table th, .data-table td { border: 1px solid #cbd5e0; padding: 8px 12px; text-align: center; }
+    .data-table th { background-color: #ebf8ff; color: #2b6cb0; }
+    .progress-bar { width: 100%; background: #e2e8f0; height: 10px; border-radius: 5px; margin-bottom: 20px; overflow: hidden; }
+    .progress-fill { height: 100%; background: #3182ce; width: 0%; transition: width 0.3s; }
+    .feedback-box { background: #f7fafc; border-left: 4px solid #3182ce; padding: 20px; margin-top: 20px; border-radius: 6px; }
+    .badge { display: inline-block; padding: 6px 12px; background: #48bb78; color: white; border-radius: 20px; font-weight: bold; margin-bottom: 10px; }
+    .teacher-section { margin-top: 30px; padding-top: 20px; border-top: 2px dashed #cbd5e0; text-align: center; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+
+  <!-- START PAGE -->
+  <div class="page active" id="page-0">
+    <h1>Phase 3 Maths: Timetables & Conversions</h1>
+    <p>Welcome! Please enter your details below before starting the quiz.</p>
+    <label for="student-name">Your Full Name:</label>
+    <input type="text" id="student-name" placeholder="e.g. Alex Tui">
+    
+    <label for="student-year">Your Year Level:</label>
+    <select id="student-year">
+      <option value="">-- Select Year Level --</option>
+      <option value="Year 7">Year 7</option>
+      <option value="Year 8">Year 8</option>
+    </select>
+    
+    <div class="nav-btns" style="justify-content: flex-end;">
+      <button class="btn" onclick="startTest()">Start Test &#8594;</button>
+    </div>
+  </div>
+
+  <!-- QUESTION PAGES -->
+  <form id="test-form">
+    <!-- Q1 -->
+    <div class="page" id="page-1">
+      <h2>Question 1 of 15</h2>
+      <p>A school cross-country run is 3.5 kilometres long. How many metres is this distance?</p>
+      <button type="button" class="option-btn" onclick="selectOpt(1, 'A')">A) 350 m</button>
+      <button type="button" class="option-btn" onclick="selectOpt(1, 'B')">B) 35,000 m</button>
+      <button type="button" class="option-btn" onclick="selectOpt(1, 'C')">C) 3,500 m</button>
+      <button type="button" class="option-btn" onclick="selectOpt(1, 'D')">D) 35 m</button>
+    </div>
+
+    <!-- Q2 -->
+    <div class="page" id="page-2">
+      <h2>Question 2 of 15</h2>
+      <p>Convert 2 hours and 45 minutes into total minutes.</p>
+      <button type="button" class="option-btn" onclick="selectOpt(2, 'A')">A) 165 minutes</button>
+      <button type="button" class="option-btn" onclick="selectOpt(2, 'B')">B) 245 minutes</button>
+      <button type="button" class="option-btn" onclick="selectOpt(2, 'C')">C) 145 minutes</button>
+      <button type="button" class="option-btn" onclick="selectOpt(2, 'D')">D) 125 minutes</button>
+    </div>
+
+    <!-- Q3 -->
+    <div class="page" id="page-3">
+      <h2>Question 3 of 15</h2>
+      <p>Look at the train timetable below:</p>
+      <table class="data-table">
+        <tr><th>Station</th><th>Train A</th><th>Train B</th></tr>
+        <tr><td>Central Station</td><td>10:15 AM</td><td>11:00 AM</td></tr>
+        <tr><td>Meadowbank</td><td>10:32 AM</td><td>11:17 AM</td></tr>
+        <tr><td>Harbour View</td><td>10:55 AM</td><td>11:40 AM</td></tr>
+      </table>
+      <p>How long does Train A take to travel from Central Station to Harbour View?</p>
+      <button type="button" class="option-btn" onclick="selectOpt(3, 'A')">A) 35 minutes</button>
+      <button type="button" class="option-btn" onclick="selectOpt(3, 'B')">B) 40 minutes</button>
+      <button type="button" class="option-btn" onclick="selectOpt(3, 'C')">C) 50 minutes</button>
+      <button type="button" class="option-btn" onclick="selectOpt(3, 'D')">D) 45 minutes</button>
+    </div>
+
+    <!-- Q4 -->
+    <div class="page" id="page-4">
+      <h2>Question 4 of 15</h2>
+      <p>A science recipe requires 450 millilitres of water. Express this volume in litres (L).</p>
+      <button type="button" class="option-btn" onclick="selectOpt(4, 'A')">A) 4.5 L</button>
+      <button type="button" class="option-btn" onclick="selectOpt(4, 'B')">B) 0.45 L</button>
+      <button type="button" class="option-btn" onclick="selectOpt(4, 'C')">C) 0.045 L</button>
+      <button type="button" class="option-btn" onclick="selectOpt(4, 'D')">D) 45 L</button>
+    </div>
+
+    <!-- Q5 -->
+    <div class="page" id="page-5">
+      <h2>Question 5 of 15</h2>
+      <p>An athlete completed a workout in 210 seconds. Express this duration in minutes and seconds.</p>
+      <button type="button" class="option-btn" onclick="selectOpt(5, 'A')">A) 3 minutes 30 seconds</button>
+      <button type="button" class="option-btn" onclick="selectOpt(5, 'B')">B) 2 minutes 10 seconds</button>
+      <button type="button" class="option-btn" onclick="selectOpt(5, 'C')">C) 3 minutes 10 seconds</button>
+      <button type="button" class="option-btn" onclick="selectOpt(5, 'D')">D) 4 minutes 10 seconds</button>
+    </div>
+
+    <!-- Q6 -->
+    <div class="page" id="page-6">
+      <h2>Question 6 of 15</h2>
+      <p>A piece of timber is 275 centimetres long. How many metres long is it?</p>
+      <button type="button" class="option-btn" onclick="selectOpt(6, 'A')">A) 27.5 m</button>
+      <button type="button" class="option-btn" onclick="selectOpt(6, 'B')">B) 0.275 m</button>
+      <button type="button" class="option-btn" onclick="selectOpt(6, 'C')">C) 2.75 m</button>
+      <button type="button" class="option-btn" onclick="selectOpt(6, 'D')">D) 2750 m</button>
+    </div>
+
+    <!-- Q7 -->
+    <div class="page" id="page-7">
+      <h2>Question 7 of 15</h2>
+      <p>Below are swimming race results showing duration times for four swimmers:</p>
+      <table class="data-table">
+        <tr><th>Swimmer</th><th>Time</th></tr>
+        <tr><td>Aroha</td><td>1 min 18 sec</td></tr>
+        <tr><td>Ben</td><td>74 sec</td></tr>
+        <tr><td>Caleb</td><td>1 min 22 sec</td></tr>
+        <tr><td>Danielle</td><td>85 sec</td></tr>
+      </table>
+      <p>Who won the race with the fastest (shortest) duration?</p>
+      <button type="button" class="option-btn" onclick="selectOpt(7, 'A')">A) Aroha</button>
+      <button type="button" class="option-btn" onclick="selectOpt(7, 'B')">B) Ben</button>
+      <button type="button" class="option-btn" onclick="selectOpt(7, 'C')">C) Caleb</button>
+      <button type="button" class="option-btn" onclick="selectOpt(7, 'D')">D) Danielle</button>
+    </div>
+
+    <!-- Q8 -->
+    <div class="page" id="page-8">
+      <h2>Question 8 of 15</h2>
+      <p>A flight departs Auckland at 1:40 PM and lands in Wellington at 2:45 PM. How long was the flight in total?</p>
+      <button type="button" class="option-btn" onclick="selectOpt(8, 'A')">A) 1 hour 15 minutes</button>
+      <button type="button" class="option-btn" onclick="selectOpt(8, 'B')">B) 1 hour 5 minutes</button>
+      <button type="button" class="option-btn" onclick="selectOpt(8, 'C')">C) 55 minutes</button>
+      <button type="button" class="option-btn" onclick="selectOpt(8, 'D')">D) 1 hour 25 minutes</button>
+    </div>
+
+    <!-- Q9 -->
+    <div class="page" id="page-9">
+      <h2>Question 9 of 15</h2>
+      <p>Convert 8,200 millimetres (mm) into metres (m).</p>
+      <button type="button" class="option-btn" onclick="selectOpt(9, 'A')">A) 82 m</button>
+      <button type="button" class="option-btn" onclick="selectOpt(9, 'B')">B) 0.82 m</button>
+      <button type="button" class="option-btn" onclick="selectOpt(9, 'C')">C) 8.2 m</button>
+      <button type="button" class="option-btn" onclick="selectOpt(9, 'D')">D) 820 m</button>
+    </div>
+
+    <!-- Q10 -->
+    <div class="page" id="page-10">
+      <h2>Question 10 of 15</h2>
+      <p>A water tank holds 2.8 Litres of water. How many millilitres (mL) is this?</p>
+      <button type="button" class="option-btn" onclick="selectOpt(10, 'A')">A) 2,800 mL</button>
+      <button type="button" class="option-btn" onclick="selectOpt(10, 'B')">B) 280 mL</button>
+      <button type="button" class="option-btn" onclick="selectOpt(10, 'C')">C) 28,000 mL</button>
+      <button type="button" class="option-btn" onclick="selectOpt(10, 'D')">D) 28 mL</button>
+    </div>
+
+    <!-- Q11 -->
+    <div class="page" id="page-11">
+      <h2>Question 11 of 15</h2>
+      <p>A TV show runs for 1¾ hours (1 hour and 45 minutes). If it starts at 6:30 PM, what time will it finish?</p>
+      <button type="button" class="option-btn" onclick="selectOpt(11, 'A')">A) 8:00 PM</button>
+      <button type="button" class="option-btn" onclick="selectOpt(11, 'B')">B) 8:15 PM</button>
+      <button type="button" class="option-btn" onclick="selectOpt(11, 'C')">C) 8:30 PM</button>
+      <button type="button" class="option-btn" onclick="selectOpt(11, 'D')">D) 7:45 PM</button>
+    </div>
+
+    <!-- Q12 -->
+    <div class="page" id="page-12">
+      <h2>Question 12 of 15</h2>
+      <p>Look at the movie session schedule below:</p>
+      <table class="data-table">
+        <tr><th>Movie</th><th>Start Time</th><th>Duration</th></tr>
+        <tr><td>Space Quest</td><td>1:15 PM</td><td>110 minutes</td></tr>
+        <tr><td>Ocean Rescue</td><td>1:30 PM</td><td>95 minutes</td></tr>
+        <tr><td>Jungle Run</td><td>2:00 PM</td><td>80 minutes</td></tr>
+      </table>
+      <p>What time does <strong>Space Quest</strong> finish?</p>
+      <button type="button" class="option-btn" onclick="selectOpt(12, 'A')">A) 3:05 PM</button>
+      <button type="button" class="option-btn" onclick="selectOpt(12, 'B')">B) 2:55 PM</button>
+      <button type="button" class="option-btn" onclick="selectOpt(12, 'C')">C) 3:15 PM</button>
+      <button type="button" class="option-btn" onclick="selectOpt(12, 'D')">D) 3:25 PM</button>
+    </div>
+
+    <!-- Q13 -->
+    <div class="page" id="page-13">
+      <h2>Question 13 of 15</h2>
+      <p>Convert 0.65 kilometres (km) into metres (m).</p>
+      <button type="button" class="option-btn" onclick="selectOpt(13, 'A')">A) 65 m</button>
+      <button type="button" class="option-btn" onclick="selectOpt(13, 'B')">B) 650 m</button>
+      <button type="button" class="option-btn" onclick="selectOpt(13, 'C')">C) 6,500 m</button>
+      <button type="button" class="option-btn" onclick="selectOpt(13, 'D')">D) 6.5 m</button>
+    </div>
+
+    <!-- Q14 -->
+    <div class="page" id="page-14">
+      <h2>Question 14 of 15</h2>
+      <p>A rugby game consists of two 40-minute halves, plus a 12-minute halftime break. What is the total duration of the match?</p>
+      <button type="button" class="option-btn" onclick="selectOpt(14, 'A')">A) 1 hour 22 minutes</button>
+      <button type="button" class="option-btn" onclick="selectOpt(14, 'B')">B) 1 hour 32 minutes</button>
+      <button type="button" class="option-btn" onclick="selectOpt(14, 'C')">C) 1 hour 40 minutes</button>
+      <button type="button" class="option-btn" onclick="selectOpt(14, 'D')">D) 1 hour 12 minutes</button>
+    </div>
+
+    <!-- Q15 -->
+    <div class="page" id="page-15">
+      <h2>Question 15 of 15</h2>
+      <p>A jug contains 3,250 mL of juice. How many litres is this?</p>
+      <button type="button" class="option-btn" onclick="selectOpt(15, 'A')">A) 32.5 L</button>
+      <button type="button" class="option-btn" onclick="selectOpt(15, 'B')">B) 0.325 L</button>
+      <button type="button" class="option-btn" onclick="selectOpt(15, 'C')">C) 3.25 L</button>
+      <button type="button" class="option-btn" onclick="selectOpt(15, 'D')">D) 325 L</button>
+    </div>
+  </form>
+
+  <!-- NAVIGATION -->
+  <div class="nav-btns" id="quiz-nav" style="display:none;">
+    <button class="btn" id="prev-btn" onclick="changePage(-1)">&#8592; Previous</button>
+    <button class="btn" id="next-btn" onclick="changePage(1)">Next &#8594;</button>
+  </div>
+
+  <!-- RESULTS PAGE -->
+  <div class="page" id="page-results">
+    <h1>Test Completed!</h1>
+    <div class="feedback-box">
+      <div id="status-badge" class="badge">At Phase 3</div>
+      <p><strong>Student Name:</strong> <span id="res-name"></span> (<span id="res-year"></span>)</p>
+      <p><strong>Total Score:</strong> <span id="res-score"></span> / 15 (<span id="res-percent"></span>%)</p>
+      <h3>Curriculum Feedback & Next Steps:</h3>
+      <p id="res-feedback-text"></p>
+    </div>
+  </div>
+
+  <!-- TEACHER BUTTON -->
+  <div class="teacher-section">
+    <button class="btn" style="background:#718096;" onclick="teacherAccess()">Teacher Access (PIN)</button>
+  </div>
+</div>
+
+<script>
+  let currentPage = 0;
+  const totalPages = 15;
+  const userAnswers = {};
+  
+  const correctAnswers = {
+    1: 'C', 2: 'A', 3: 'B', 4: 'B', 5: 'A',
+    6: 'C', 7: 'B', 8: 'B', 9: 'C', 10: 'A',
+    11: 'B', 12: 'A', 13: 'B', 14: 'B', 15: 'C'
+  };
+
+  // Updated URL
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxmgu6GzlEsQc8NVv9v_XBULAWD_UonCr9XLZ48IvwB0gGbpsOHMUeVakZHWmve0R6Axg/exec";
+
+  function startTest() {
+    const name = document.getElementById('student-name').value.trim();
+    const year = document.getElementById('student-year').value;
+    if (!name || !year) {
+      alert("Please enter your name and select your year level before starting.");
+      return;
+    }
+    document.getElementById('page-0').classList.remove('active');
+    currentPage = 1;
+    document.getElementById('page-1').classList.add('active');
+    document.getElementById('quiz-nav').style.display = 'flex';
+    updateProgress();
+  }
+
+  function selectOpt(qNum, option) {
+    userAnswers[qNum] = option;
+    const btns = document.querySelectorAll('#page-' + qNum + ' .option-btn');
+    btns.forEach(b => b.classList.remove('selected'));
+    event.target.classList.add('selected');
+  }
+
+  function changePage(dir) {
+    if (dir === 1 && !userAnswers[currentPage]) {
+      alert("Please choose an answer before going to the next question.");
+      return;
+    }
+
+    document.getElementById('page-' + currentPage).classList.remove('active');
+    currentPage += dir;
+
+    if (currentPage > totalPages) {
+      document.getElementById('quiz-nav').style.display = 'none';
+      submitTest();
+      return;
+    }
+
+    document.getElementById('page-' + currentPage).classList.add('active');
+    updateProgress();
+  }
+
+  function updateProgress() {
+    document.getElementById('prev-btn').disabled = (currentPage <= 1);
+    const percent = Math.round((currentPage / totalPages) * 100);
+    document.getElementById('progress').style.width = percent + '%';
+  }
+
+  function submitTest() {
+    let score = 0;
+    const qResults = {};
+    for (let i = 1; i <= 15; i++) {
+      const isCorrect = userAnswers[i] === correctAnswers[i];
+      if (isCorrect) score++;
+      qResults['q' + i] = isCorrect ? 'Correct' : 'Incorrect (' + userAnswers[i] + ')';
+    }
+
+    const percentage = Math.round((score / 15) * 100);
+    let level = "";
+    let feedback = "";
+
+    if (score >= 12) {
+      level = "Above Phase 3 (Strong Mastery)";
+      feedback = "Outstanding job! You show confident mastery of Phase 3 measurement, including reading multi-step timetables, calculating elapsed times, and converting fluidly between metric units (km to m, mL to L).";
+    } else if (score >= 8) {
+      level = "At Phase 3 (Consolidating)";
+      feedback = "Great work! You are securely working within Phase 3. Keep practicing converting between mixed time units (minutes to hours/seconds) and decimal metric conversions to reach total precision.";
+    } else {
+      level = "Working Towards Phase 3";
+      feedback = "Good effort! You are building your foundational skills in Phase 3 measurement. Focus on reviewing metric unit prefixes (kilo- = 1000, milli- = 1/1000) and reading timetable schedules step-by-step.";
+    }
+
+    document.getElementById('res-name').textContent = document.getElementById('student-name').value;
+    document.getElementById('res-year').textContent = document.getElementById('student-year').value;
+    document.getElementById('res-score').textContent = score;
+    document.getElementById('res-percent').textContent = percentage;
+    document.getElementById('status-badge').textContent = level;
+    document.getElementById('res-feedback-text').textContent = feedback;
+    document.getElementById('page-results').classList.add('active');
+
+    fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: document.getElementById('student-name').value,
+        year: document.getElementById('student-year').value,
+        score: score,
+        percentage: percentage,
+        curriculumLevel: level,
+        ...qResults,
+        feedback: feedback
+      })
+    });
+  }
+
+  function teacherAccess() {
+    const pin = prompt("Enter Teacher Security PIN:");
+    if (pin === "1335") {
+      alert("PIN Accepted! Redirecting to Google Sheet database.");
+      window.open("https://docs.google.com", "_blank");
+    } else {
+      alert("Incorrect PIN.");
+    }
+  }
+</script>
+</body>
+</html>
